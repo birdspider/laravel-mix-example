@@ -31,12 +31,17 @@ export const value = 'value-from-appjs';
 
   <script type="module">
     console.info('1) via `import app from "/bundled/app.js"`')
-    console.warn('1) disabled due to: Uncaught SyntaxError: import not found: default')
+    //console.warn('1) disabled due to: Uncaught SyntaxError: import not found: default')
 
-      //import app from "/bundled/app.js"
-      //console.log(app)
+    import app from "/bundled/app.js"
+    console.log('1) it WORKS', app);
+    console.log('^^^^^^^^^^^');
 
-      // throws: Uncaught SyntaxError: import not found: default
+      // without webpack.mix.js explicit `mix.webpackConfig`
+      // would throw: Uncaught SyntaxError: import not found: default
+
+    console.log('1) call app.callModulAFn(4)',app.callModulAFn(4));
+    console.log('   which is `square` and should be 16');
   </script>
 
   <script type="module">
