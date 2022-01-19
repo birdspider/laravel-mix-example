@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Laravel Mix Example</title>
+
+  <link rel="icon" href="data:,">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://unpkg.com/simpledotcss/simple.min.css">
+
+</head>
+
+<body>
+  <h1>Laravel Mix Example</h1>
+
+  <p>Question: how to access module exports with <code>laravel-mix</code> generated
+    js bundles?</p>
+
+  <pre><code>
+# i.e. app.js
+export const value = 'value-from-appjs';
+
+// how to get `value` in browser context
+  </code></pre>
+
+  <p>see inline script sources and browser console</p>
+
+  <script type="module">
+    console.info('1) via `import app from "/bundled/app.js"`')
+    console.warn('1) disabled due to: Uncaught SyntaxError: import not found: default')
+
+      //import app from "/bundled/app.js"
+      //console.log(app)
+
+      // throws: Uncaught SyntaxError: import not found: default
+  </script>
+
+  <script type="module">
+    import("/bundled/app.js").then((module) => {
+      console.info('2) via `import("/bundled/app.js")`')
+      console.log('2)', typeof module, module) // object
+      console.log('2) module.default:', module.default) // object
+    })
+  </script>
+
+  <script>
+    import("/bundled/app.js").then((something) => {
+      console.info('3) via wait `import("/bundled/app.js")`, then log `window.app`')
+      console.log('3)', window.app) // the window "exports"
+    })
+  </script>
+
+  <script type="module">
+    console.info('4) via `import app from "/not-bundled/app.js"`')
+
+    import app from "/not-bundled/app.js"
+    console.log('4)', app)
+
+    // works
+  </script>
+</body>
+
+</html>

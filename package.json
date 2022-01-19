@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "laravel-mix": "^6.0.41"
+  },
+  "scripts": {}
+}

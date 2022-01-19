@@ -1,0 +1,4 @@
+{
+    "/app.js": "/app.js",
+    "/public/not-bundled/app.js": "/public/not-bundled/app.js"
+}
